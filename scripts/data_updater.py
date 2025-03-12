@@ -51,7 +51,7 @@ def run_update(args):
                 results = updater.update_all_pairs(
                     update_latest=True,
                     fill_gaps=False,
-                    update_timeframes=True
+                    # update_timeframes=True
                 )
                 
                 # Check results

@@ -1,1 +1,15 @@
-We've already implemented the data module which handles fetching forex data from MT5, storing it in PostgreSQL (only 1-minute data), resampling on-demand to higher timeframes, and keeping data updated through scheduled tasks. The module consists of: fetcher.py (MT5 interface), database.py (storage/retrieval), resampler.py (timeframe conversion), and updater.py (scheduled updates). All code is in the drl_forex_trading_internal package. Now let's implement the next module...
+In our previous work, we developed the data module for a Forex AI Trading system. The module is in the drl_forex_trading_internal package with these key components:
+
+data/fetcher.py: Contains the MT5Fetcher class to connect to MetaTrader 5 and retrieve OHLCV data
+data/database.py: Contains the DataManager class that handles storing 1-minute data in PostgreSQL using a schema-based approach with separate tables for each currency pair (e.g., price_data.eurusd_1m)
+data/resampler.py: Contains the DataResampler class for on-demand resampling of 1-minute data to higher timeframes
+data/updater.py: Contains the DataUpdater class for automating data updates and gap filling
+
+The module is configured via config/main.yml and follows these principles:
+
+Only stores raw 1-minute (M1) data in the database
+Performs resampling on-demand when other modules request data at higher timeframes
+Designed for scheduled updates via scripts/data_updater.py
+Uses PostgreSQL with a schema 'price_data' containing tables like 'eurusd_1m'
+
+We need to continue with implementing the next module [MODULE NAME] which will interact with this data module.
