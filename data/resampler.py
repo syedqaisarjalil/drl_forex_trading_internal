@@ -106,8 +106,7 @@ class DataResampler:
         pair_name: str,
         target_timeframe: str,
         start_date: Optional[pd.Timestamp] = None,
-        end_date: Optional[pd.Timestamp] = None,
-        store_result: bool = False
+        end_date: Optional[pd.Timestamp] = None
     ) -> Optional[pd.DataFrame]:
         """
         Get resampled price data for a currency pair.
@@ -117,21 +116,12 @@ class DataResampler:
             target_timeframe: Target timeframe string
             start_date: Start date for data retrieval
             end_date: End date for data retrieval
-            store_result: Whether to store the resampled data
             
         Returns:
             Resampled DataFrame or None if error
         """
         try:
-            # Check if the resampled data already exists in the database
-            if self.data_manager._ensure_price_table(pair_name, target_timeframe) is not None:
-                # Try to get data from the database first
-                df = self.data_manager.get_price_data(pair_name, target_timeframe, start_date, end_date)
-                if df is not None and not df.empty:
-                    logger.info(f"Retrieved resampled {target_timeframe} data for {pair_name} from database")
-                    return df
-            
-            # If we don't have the data in the database, get the 1-minute data and resample it
+            # Get the 1-minute data
             m1_data = self.data_manager.get_price_data(pair_name, "1m", start_date, end_date)
             if m1_data is None or m1_data.empty:
                 logger.warning(f"No 1-minute data available for {pair_name}")
@@ -142,12 +132,7 @@ class DataResampler:
             if resampled is None:
                 logger.error(f"Failed to resample data for {pair_name}")
                 return None
-                
-            # Store the resampled data if requested
-            if store_result:
-                self.data_manager.store_price_data(pair_name, resampled, target_timeframe)
-                logger.info(f"Stored resampled {target_timeframe} data for {pair_name} in database")
-                
+            
             return resampled
             
         except Exception as e:

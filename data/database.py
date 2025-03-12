@@ -200,10 +200,10 @@ class DataManager:
             for _, row in data.iterrows():
                 records.append({
                     'timestamp': row['time'],
-                    'open': float(row['open']),
-                    'high': float(row['high']),
-                    'low': float(row['low']),
-                    'close': float(row['close']),
+                   'open': round(float(row['open']), 6),
+                    'high': round(float(row['high']), 6),
+                    'low': round(float(row['low']), 6),
+                    'close': round(float(row['close']), 6),
                     'volume': float(row['volume'])
                 })
                 

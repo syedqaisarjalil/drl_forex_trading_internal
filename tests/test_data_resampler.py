@@ -65,8 +65,8 @@ def test_data_resampler():
             logger.error(f"Failed to store 1-minute data for {symbol}")
             return False
             
-        # Test direct resampling
-        logger.info("Testing direct resampling...")
+        # Test direct resampling (in-memory only, no database storage)
+        logger.info("Testing direct resampling (in-memory only)...")
         for tf in ["5m", "15m", "1h"]:
             logger.info(f"Resampling to {tf}...")
             resampled = resampler.resample_data(df_1m, "1m", tf)
@@ -77,46 +77,24 @@ def test_data_resampler():
             logger.info(f"Successfully resampled to {tf}: {len(resampled)} candles")
             logger.info(f"Sample {tf} data:\n{resampled.head()}")
         
-        # Test database-based resampling and storage
-        logger.info("Testing database resampling with storage...")
+        # Test on-demand resampling using get_resampled_price_data
+        logger.info("Testing on-demand resampling...")
         for tf in ["5m", "15m", "1h"]:
-            logger.info(f"Getting and storing resampled {tf} data...")
+            logger.info(f"Getting resampled {tf} data...")
             result = resampler.get_resampled_price_data(
-                symbol, tf, start_time, end_time, store_result=True
+                symbol, tf, start_time, end_time
             )
             if result is None:
                 logger.error(f"Failed to get resampled {tf} data")
                 continue
                 
-            logger.info(f"Successfully retrieved and stored {tf} data: {len(result)} candles")
+            logger.info(f"Successfully retrieved resampled {tf} data: {len(result)} candles")
+            logger.info(f"Sample resampled {tf} data:\n{result.head()}")
             
-            # Verify the data was stored by retrieving it directly
-            stored_df = data_manager.get_price_data(symbol, tf, start_time, end_time)
-            if stored_df is None or stored_df.empty:
-                logger.error(f"Failed to retrieve stored {tf} data")
-                continue
-                
-            logger.info(f"Verified {tf} data storage: {len(stored_df)} candles")
-        
-        # Test bulk resampling of latest data
-        logger.info("Testing bulk resampling of latest data...")
-        timeframes = ["5m", "15m", "30m", "1h", "4h"]
-        bulk_results = resampler.resample_latest_data(symbol, timeframes, lookback_days=1)
-        logger.info(f"Bulk resampling results: {bulk_results}")
-        
-        # Verify bulk resampling results
-        for tf, success in bulk_results.items():
-            if not success:
-                logger.warning(f"Bulk resampling to {tf} failed")
-                continue
-                
-            stored_df = data_manager.get_price_data(symbol, tf, limit=5)
-            if stored_df is None or stored_df.empty:
-                logger.error(f"Failed to retrieve bulk resampled {tf} data")
-                continue
-                
-            logger.info(f"Verified bulk resampled {tf} data: {len(stored_df)} candles shown")
-            logger.info(f"Sample bulk resampled {tf} data:\n{stored_df}")
+            # Verify that NO table was created for this timeframe
+            # We can't directly check if table exists since we're using dynamic tables
+            # But we can log that we're not attempting to store the data
+            logger.info(f"Note: Resampled {tf} data is only in memory and NOT stored in database")
         
         # Shut down MT5
         fetcher.shutdown()

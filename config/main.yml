@@ -39,10 +39,10 @@ data:
       description: "US Dollar vs Japanese Yen"
       pip_value: 0.01
       spread_avg: 1.6
-    - name: "AUDUSD"
-      description: "Australian Dollar vs US Dollar"
-      pip_value: 0.0001
-      spread_avg: 1.9
+    # - name: "AUDUSD"
+    #   description: "Australian Dollar vs US Dollar"
+    #   pip_value: 0.0001
+    #   spread_avg: 1.9
   
   # Timeframes for analysis and trading (M1 is base storage)
   timeframes:
