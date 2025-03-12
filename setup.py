@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="forex_ai_trading",
+    name="drl_forex_trading_internal",
     version="0.1.0",
     packages=find_packages(),
     install_requires=[

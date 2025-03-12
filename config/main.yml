@@ -1,1 +1,71 @@
-# Core settings (pairs, timeframes, paths)
+# AI Forex Trading Bot - Main Configuration
+
+# System paths
+paths:
+  models: "./models/saved/"
+  logs: "./logs/"
+  data: "./data/raw/"
+
+# MT5 Connection settings
+mt5:
+  server: "MetaQuotes-Demo"
+  login: 10005811694  # Replace with your actual account
+  password: "U@R5RfDk"  # Replace with your actual password
+  timeout: 60000  # Connection timeout in milliseconds
+
+# Database settings
+database:
+  host: "localhost"
+  port: 5432
+  name: "forex_ai_trading"
+  user: "postgres"
+  password: "syed"
+  pool_size: 5
+  max_overflow: 10
+
+# Data settings
+data:
+  start_date: "2025-03-01"  # Historical data start date
+  currency_pairs:  # List of currency pairs to trade
+    - name: "EURUSD"
+      description: "Euro vs US Dollar"
+      pip_value: 0.0001
+      spread_avg: 1.5  # Average spread in pips
+    - name: "GBPUSD"
+      description: "British Pound vs US Dollar"
+      pip_value: 0.0001
+      spread_avg: 1.8
+    - name: "USDJPY"
+      description: "US Dollar vs Japanese Yen"
+      pip_value: 0.01
+      spread_avg: 1.6
+    - name: "AUDUSD"
+      description: "Australian Dollar vs US Dollar"
+      pip_value: 0.0001
+      spread_avg: 1.9
+  
+  # Timeframes for analysis and trading (M1 is base storage)
+  timeframes:
+    - M1   # 1 minute
+    - M30  # 30 minutes
+    - H1   # 1 hour
+    - D1   # 1 day
+
+  # Data update settings
+  update:
+    frequency: 60  # Update frequency in minutes
+    retry_attempts: 3  # Number of retry attempts if update fails
+    retry_delay: 300  # Delay between retries in seconds
+    max_candles_per_request: 1000  # Maximum number of candles to request in one call
+
+# Trading calendar settings
+calendar:
+  weekend_trading: false  # Whether to trade on weekends
+  forex_market_open: 
+    - day: 0  # Monday (0) to Friday (4)
+      time: "00:00"
+    - day: 4
+      time: "22:00"
+  holidays:  # Major forex holidays (markets closed or low liquidity)
+    - "2023-01-01"  # New Year's Day
+    - "2023-12-25"  # Christmas

@@ -208,7 +208,7 @@ tqdm>=4.62.0
     create_file(os.path.join(base_dir, "setup.py"), """from setuptools import setup, find_packages
 
 setup(
-    name="forex_ai_trading",
+    name="drl_forex_trading_internal",
     version="0.1.0",
     packages=find_packages(),
     install_requires=[
@@ -263,7 +263,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         project_dir = sys.argv[1]
     else:
-        project_dir = "forex_ai_trading_internal"
+        project_dir = "drl_forex_trading_internal_internal"
     project_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)))
     
     setup_project_structure(project_dir)

@@ -1,4 +1,4 @@
-forex_ai_trading/
+drl_forex_trading_internal/
 ├── config/
 │   ├── main.yml                 # Core settings (pairs, timeframes, paths)
 │   ├── models.yml               # Model hyperparameters
