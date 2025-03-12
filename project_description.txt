@@ -1,0 +1,84 @@
+AI Forex Trading Bot Project Detailed Description
+Project Overview
+This project involves developing a modular, scalable AI-powered Forex trading system for MetaTrader 5 (MT5). The system combines Deep Reinforcement Learning (DRL) with technical indicators to make trading decisions, execute trades, and manage risk. The architecture is designed to be flexible, allowing for easy addition of new currency pairs, timeframes, and strategies.
+Core Architecture
+Communication System
+
+ZeroMQ for communication between Python and MT5
+
+No separate server needed - the library handles messaging
+Cross-platform compatibility (Windows, Linux, macOS)
+Low latency, reliable messaging patterns
+Implements request-reply pattern for most communications
+JSON-formatted data for signals and market information
+
+
+
+Data Management
+
+Store 1-minute level data of each currency pair in PostgreSQL
+Scheduled script for continuous data collection and updates
+On-demand resampling to requested timeframes (15m, 1h, etc.)
+Historical data fetching from MT5 dating back to configured start date
+Efficient query patterns for retrieving large amounts of time-series data
+
+AI Model Framework
+
+Deep Reinforcement Learning using Stable Baselines3 (A2C or PPO)
+LSTM for time-series feature processing and pattern recognition
+Comprehensive model metadata storage (input features, training data, hyperparameters)
+Model registry for version tracking and management
+Manual retraining process with clear documentation
+
+Technical Indicators
+
+Core indicators: RSI, MACD, Bollinger Bands, Fibonacci, OBV, EMA
+Modular indicator system with standardized interfaces
+Indicator registry for easy extension
+Parameter validation and consistent signal output format
+
+Strategy System
+
+Strategies combine AI models with technical indicators
+Strategy creation both manually (YAML) and programmatically
+Multiple signal combination approaches:
+
+Hierarchical decision trees
+Weighted scoring systems
+Rule-based expert systems
+
+
+Strategy-specific configuration parameters
+Strategy validation to check for incompatible combinations
+
+Backtesting Engine
+
+Vectorized backtesting for strategy evaluation
+Realistic modeling of spread, slippage, commissions
+Comprehensive performance metrics (win rate, profit factor, drawdown)
+Multiple levels of backtesting (models, indicators, combined strategies)
+Performance visualization and reporting
+
+Trading Execution
+
+ZeroMQ bridge between Python and MT5
+Risk management with configurable parameters (per-trade, daily limits)
+Adaptive take-profit and stop-loss based on AI confidence
+Trade monitoring and performance tracking
+Error handling for failed orders and communication issues
+
+Common Utilities
+
+Logging utilities for system-wide consistent logging
+Date/time handling for accurate timezone management
+Configuration loading and validation
+Common mathematical operations
+Error handling wrappers
+Testing utilities for consistent testing approaches
+
+Initial Scope
+
+Trading pairs: EUR/USD, GBP/USD, USD/JPY, AUD/USD
+Timeframes: 15-minute and 1-hour charts
+Can be expanded to additional pairs via configuration
+Configurable risk parameters (0.5% risk per trade, 2% daily limit initially)

@@ -1,0 +1,87 @@
+forex_ai_trading/
+├── config/
+│   ├── main.yml                 # Core settings (pairs, timeframes, paths)
+│   ├── models.yml               # Model hyperparameters
+│   └── strategies.yml           # Strategy definitions
+│   
+├── data/
+│   ├── fetcher.py               # MT5 data acquisition
+│   ├── database.py              # Database operations
+│   ├── resampler.py             # Timeframe conversion
+│   ├── updater.py               # Scheduled data updates
+│   └── __init__.py              # Package initialization
+│   
+├── models/
+│   ├── drl.py                   # DRL implementation (Stable Baselines3)
+│   ├── features.py              # Feature engineering with LSTM
+│   ├── training.py              # Model training pipeline
+│   ├── registry.py              # Model storage and retrieval
+│   └── __init__.py              # Package initialization
+│   
+├── indicators/
+│   ├── base.py                  # Base indicator class
+│   ├── standard.py              # Standard indicators (RSI, MACD, etc.)
+│   ├── registry.py              # Indicator registration
+│   └── __init__.py              # Package initialization
+│   
+├── strategies/
+│   ├── manager.py               # Strategy loading and management
+│   ├── evaluator.py             # Strategy evaluation logic
+│   ├── factory.py               # Strategy creation helpers
+│   └── __init__.py              # Package initialization
+│   
+├── backtesting/
+│   ├── engine.py                # Backtesting simulation
+│   ├── metrics.py               # Performance metrics
+│   ├── visualization.py         # Results visualization
+│   └── __init__.py              # Package initialization
+│   
+├── trading/
+│   ├── bridge.py                # ZeroMQ communication
+│   ├── risk.py                  # Risk management
+│   ├── execution.py             # Trade execution logic
+│   ├── monitor.py               # Trade monitoring
+│   └── __init__.py              # Package initialization
+│   
+├── mt5/
+│   ├── ForexAI_EA.mq5           # MT5 Expert Advisor
+│   ├── ZMQ_Bridge.mqh           # ZeroMQ implementation
+│   └── Utilities.mqh            # Common MT5 utilities
+│   
+├── db/
+│   ├── connector.py             # Database connection handling
+│   ├── schema.py                # Database schema definition
+│   ├── migrations/              # Database migration scripts
+│   └── __init__.py              # Package initialization
+│   
+├── utils/
+│   ├── logger.py                # Logging utilities
+│   ├── config.py                # Configuration utilities
+│   ├── datetime.py              # Date/time handling
+│   ├── math.py                  # Common math operations
+│   ├── testing.py               # Testing utilities
+│   └── __init__.py              # Package initialization
+│   
+├── scripts/
+│   ├── install.py               # Installation script
+│   ├── data_updater.py          # Script for scheduled data updates
+│   ├── backtest.py              # CLI for backtesting
+│   └── train_model.py           # CLI for model training
+│   
+├── tests/                       # Unit and integration tests
+│   ├── data/
+│   ├── models/
+│   ├── indicators/
+│   ├── strategies/
+│   └── ...
+│   
+├── docs/                        # Documentation
+│   ├── setup.md
+│   ├── usage.md
+│   ├── api.md
+│   └── examples.md
+│   
+├── .gitignore                   # Git ignore file
+├── requirements.txt             # Python dependencies
+├── setup.py                     # Package installation
+└── README.md                    # Project overview
